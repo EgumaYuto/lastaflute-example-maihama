@@ -1,0 +1,45 @@
+version: '2'
+services:
+#  dockside:
+#    build: ../maihama-dockside/
+#    ports:
+#     - "8091:8091"
+#    volumes:
+#     - .:/code
+#    links:
+#     - mysql
+  intro:
+    image: cabossoldir/dbflute-intro
+    ports:
+      - "8926:8926"
+    volumes:
+      - ../maihama-common/dbflute_maihamadb:/build/dbflute_maihamadb/:rw # for logging
+      - ../maihama-common/src:/build/src/:ro
+      - ../maihama-dockside/src:/maihama-dockside/src/:ro
+      - ../maihama-hangar/src:/maihama-hangar/src/:ro
+      - ../maihama-magiclamp/src:/maihama-magiclamp/src/:ro
+      - ../maihama-orleans/src:/maihama-orleans/src/:ro
+      - ../maihama-showbase/src:/maihama-showbase/src/:ro
+    links:
+      - db
+    networks:
+      - maihama-net
+  db:
+    container_name: maihama-mysql
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: "maihamadb"
+      MYSQL_USER: "root"
+    expose:
+      - "3306"
+    ports:
+      - "3306:3306"
+    networks:
+      - maihama-net
+
+networks:
+  maihama-net:
+    driver: bridge

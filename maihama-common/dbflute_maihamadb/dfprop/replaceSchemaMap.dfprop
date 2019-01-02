@@ -151,10 +151,10 @@ map:{
     #
     ; additionalUserMap = map:{
         ; system = map:{
-            ; url = jdbc:mysql://localhost:3306
+            ; url = jdbc:mysql://maihama-mysql/maihamadb
             #; schema = ...
             ; user = root
-            ; password = df:dfprop/system-password.txt|
+            ; password = password
         }
     }
     # - - - - - - - - - -/

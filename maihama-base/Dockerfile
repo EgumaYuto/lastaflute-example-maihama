@@ -1,0 +1,1 @@
+FROM cabossoldir:dbflute-intro
